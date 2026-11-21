@@ -1,0 +1,23 @@
+name: Build Redlib for Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Upload redlib.exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: redlib-windows
+          path: target/release/redlib.exe
